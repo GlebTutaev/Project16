@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     LayoutInflater layoutInflater;
     List<User> users = new ArrayList<>();
     UserListAdapter userListAdapter;
+    FrameLayout userPanel;
+    TextView nameTV, stateTV, ageTV;
 
 
     @Override
@@ -47,6 +50,21 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         layoutInflater = layoutInflater.from(context);
         UserListAdapter userLisAdapter = new UserListAdapter();
+
+        userPanel = findViewById(R.id.userPanel);
+        nameTV = findViewById(R.id.nameTV);
+        stateTV = findViewById(R.id.stateTV);
+        ageTV = findViewById(R.id.ageTV);
+    }
+
+    public void BackToList(View view) {
+        UserVisibility(false);
+    }
+
+    private void UserVisibility(boolean b) {
+
+        if(b) userPanel.setVisibility(View.VISIBLE);
+        else userPanel.setVisibility(View.GONE);
     }
 
 
@@ -72,16 +90,32 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int position, View currentView, ViewGroup parent) {
 
 
-            User currenUser  = getItem(position);
+            User currentUser  = getItem(position);
             currentView = layoutInflater.inflate(R.layout.item_user, parent, false);
 
             TextView nameView = currentView.findViewById(R.id.nameTV);
             TextView stateView = currentView.findViewById(R.id.stateTV);
 
-            nameView.setText(currenUser.getName());
-            stateView.setText(currenUser.getState());
+            nameView.setText(currentUser.getName());
+            stateView.setText(currentUser.getState());
+
+            currentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InitPanel(getItem(position));
+                    UserVisibility(true);
+                }
+            });
+
             return currentView;
         }
 
+    }
+
+    private void InitPanel(User item) {
+
+        nameTV.setText(item.getName());
+        stateTV.setText(item.getState());
+        ageTV.setText(String.valueOf(item.getAge()));
     }
 }
