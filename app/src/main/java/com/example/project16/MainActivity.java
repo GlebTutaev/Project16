@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         context = this;
         layoutInflater = layoutInflater.from(context);
-        UserListAdapter userLisAdapter = new UserListAdapter();
+        UserListAdapter userListAdapter = new UserListAdapter();
+        listView.setAdapter(userListAdapter);
 
         userPanel = findViewById(R.id.userPanel);
         nameTV = findViewById(R.id.nameTV);
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void BackToList(View view) {
+
         UserVisibility(false);
     }
 
