@@ -5,7 +5,23 @@ public class User {
     private String Name, State;
     private int Age;
 
-    public User(String иван, String я_усталь, int i) {
+
+    public User(String name, String state, int age, int stateSignal) {
+
+        Name = name;
+        Age = age;
+        State = state;
+        StateSignal = stateSignal;
+    }
+
+    private int StateSignal;
+
+    public int getStateSignal() {
+        return StateSignal;
+    }
+
+    public void setStateSignal(int stateSignal) {
+        StateSignal = stateSignal;
     }
 
     public String getName() {
