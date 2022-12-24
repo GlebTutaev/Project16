@@ -1,8 +1,12 @@
 package com.example.project16;
 
+import static com.example.project16.UserStaticInfo.POSITION;
+import static com.example.project16.UserStaticInfo.users;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -23,54 +27,55 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     Context context;
     LayoutInflater layoutInflater;
-    List<User> users = new ArrayList<>();
-    UserListAdapter userListAdapter;
-    FrameLayout userPanel;
-    TextView nameTV, stateTV, ageTV;
+    static UserListAdapter userListAdapter;
+    FrameLayout UserPanel;
+    TextView NameTextView, StateTextView, AgeTextView;
 
+    public static void UpdateList() {
+        userListAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AddUsersInList();
+        //AddUsersInList();
+        new UserStaticInfo();
         Init();
     }
 
-    private void AddUsersInList() {
-
-        users.add(new User("Иван", "Я усталь", 19, 0));
-        users.add(new User("Иван", "Я усталь", 19,1 ));
-        users.add(new User("Иван", "Я усталь", 19,2 ));
-        users.add(new User("Иван", "Я усталь", 19,0 ));
-    }
-
     private void Init() {
+        UserPanel = findViewById(R.id.userPanel);
+        NameTextView = findViewById(R.id.NameTextView);
+        StateTextView = findViewById(R.id.StateTextView);
+        AgeTextView = findViewById(R.id.AgeTextView);
         listView = findViewById(R.id.listView);
         context = this;
-        layoutInflater = layoutInflater.from(context);
-        UserListAdapter userListAdapter = new UserListAdapter();
+        layoutInflater = LayoutInflater.from(context);
+        userListAdapter = new UserListAdapter();
         listView.setAdapter(userListAdapter);
+    }
 
-        userPanel = findViewById(R.id.userPanel);
-        nameTV = findViewById(R.id.nameTV);
-        stateTV = findViewById(R.id.stateTV);
-        ageTV = findViewById(R.id.ageTV);
+    public void GoToUserProfile(int position) {
+        Intent intent = new Intent(context, UserActivity.class);
+        intent.putExtra(POSITION, position);
+        startActivity(intent);
     }
 
     public void BackToList(View view) {
-
         UserVisibility(false);
     }
 
-    private void UserVisibility(boolean b) {
-
-        if(b) userPanel.setVisibility(View.VISIBLE);
-        else userPanel.setVisibility(View.GONE);
+    private void UserVisibility(boolean visible) {
+        if (visible) {
+            UserPanel.setVisibility(View.VISIBLE);
+        } else {
+            UserPanel.setVisibility(View.GONE);
+        }
     }
 
-
     private class UserListAdapter extends BaseAdapter {
+
         @Override
         public int getCount() {
             return users.size();
@@ -86,23 +91,16 @@ public class MainActivity extends AppCompatActivity {
             return position;
         }
 
-
-
         @Override
         public View getView(final int position, View currentView, ViewGroup parent) {
-
-
-            User currentUser  = getItem(position);
+            User currentUser = getItem(position);
             currentView = layoutInflater.inflate(R.layout.item_user, parent, false);
-
-            TextView nameView = currentView.findViewById(R.id.nameTV);
-            TextView stateView = currentView.findViewById(R.id.stateTV);
-
+            TextView nameView = currentView.findViewById(R.id.NameTextView);
+            TextView stateView = currentView.findViewById(R.id.StateTextView);
             nameView.setText(currentUser.getName());
             stateView.setText(currentUser.getState());
-
             FrameLayout StateRound = currentView.findViewById(R.id.StateRound);
-            switch (currentUser.getStateSignal()){
+            switch (currentUser.getStateSignal()) {
                 case 0:
                     StateRound.setBackgroundResource(R.drawable.back_offline);
                     break;
@@ -111,7 +109,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 2:
                     StateRound.setBackgroundResource(R.drawable.back_deaprted);
+                    break;
             }
+
 
             currentView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,13 +123,11 @@ public class MainActivity extends AppCompatActivity {
 
             return currentView;
         }
-
     }
 
     private void InitPanel(User item) {
-
-        nameTV.setText(item.getName());
-        stateTV.setText(item.getState());
-        ageTV.setText(String.valueOf(item.getAge()));
+        NameTextView.setText(item.getName());
+        StateTextView.setText(item.getState());
+        AgeTextView.setText(String.valueOf(item.getAge()));
     }
 }

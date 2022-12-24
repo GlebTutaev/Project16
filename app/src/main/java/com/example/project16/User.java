@@ -4,6 +4,7 @@ public class User {
 
     private String Name, State;
     private int Age;
+    private int StateSignal;
 
 
     public User(String name, String state, int age, int stateSignal) {
@@ -14,7 +15,6 @@ public class User {
         StateSignal = stateSignal;
     }
 
-    private int StateSignal;
 
     public int getStateSignal() {
         return StateSignal;
