@@ -41,7 +41,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void Back(){
-        onBackPressed();
+        onBackPressed(e);
     }
 
     public void Save(View view) {
