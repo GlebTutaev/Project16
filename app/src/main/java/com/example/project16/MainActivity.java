@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
@@ -29,10 +23,15 @@ public class MainActivity extends AppCompatActivity {
     LayoutInflater layoutInflater;
     static UserListAdapter userListAdapter;
     FrameLayout UserPanel;
-    TextView NameTextView, StateTextView, AgeTextView;
+    static TextView NameTextView;
+    static TextView StateTextView;
+    static TextView AgeTextView;
+    int positionActiveUser;
 
-    public static void UpdateList() {
+    public static void UpdateListAndUserPanel(User user) {
+
         userListAdapter.notifyDataSetChanged();
+        InitPanel(user);
     }
 
     @Override
@@ -72,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             UserPanel.setVisibility(View.GONE);
         }
+    }
+
+    public void EditUser(View view) {
+        GoToUserProfile(positionActiveUser);
     }
 
     private class UserListAdapter extends BaseAdapter {
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             currentView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    positionActiveUser = position;
                     InitPanel(getItem(position));
                     UserVisibility(true);
                 }
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void InitPanel(User item) {
+    private static void InitPanel(User item) {
         NameTextView.setText(item.getName());
         StateTextView.setText(item.getState());
         AgeTextView.setText(String.valueOf(item.getAge()));

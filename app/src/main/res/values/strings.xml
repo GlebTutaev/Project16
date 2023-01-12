@@ -2,5 +2,6 @@
     <string name="app_name">Project16</string>
     <string name="stateHint">Статус</string>
     <string name="nameHint">Имя</string>
+    <string name="ageHint">Возраст</string>
     <string name="save">Сохранить</string>
 </resources>

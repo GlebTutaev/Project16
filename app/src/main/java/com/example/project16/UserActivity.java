@@ -12,7 +12,7 @@ import android.widget.EditText;
 public class UserActivity extends AppCompatActivity {
 
 
-    EditText NameTextView, StateTextView;
+    EditText NameTextView, StateTextView, AgeTextView;
     private User activeUser;
 
 
@@ -29,12 +29,14 @@ public class UserActivity extends AppCompatActivity {
     private void setUserInfo(){
         NameTextView.setText(activeUser.getName());
         StateTextView.setText(activeUser.getState());
+        AgeTextView.setText(String.valueOf(activeUser.getAge()));
 
     }
 
     private void Init(){
         NameTextView = findViewById(R.id.NameTextView);
         StateTextView = findViewById(R.id.StateTextView);
+        AgeTextView = findViewById(R.id.AgeTextView);
     }
 
     public void Back(){
@@ -44,7 +46,17 @@ public class UserActivity extends AppCompatActivity {
     public void Save(View view) {
         activeUser.setName(NameTextView.getText().toString());
         activeUser.setState(StateTextView.getText().toString());
-        MainActivity.UpdateList();
+        activeUser.setAge(Integer.parseInt(AgeTextView.getText().toString()));
+        String age = AgeTextView.getText().toString();
+        try {
+            activeUser.setAge(Integer.parseInt(age));
+        }
+        catch (Exception NumberFormatException){
+            activeUser.setAge(activeUser.getAge());
+        }
+
+        //activeUser.setAge(parseIntOrDefault(age,activeUser.getAge()));
+        MainActivity.UpdateListAndUserPanel(activeUser);
         finish();
     }
 }

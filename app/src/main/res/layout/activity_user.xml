@@ -22,16 +22,26 @@
         android:orientation="vertical">
         <EditText
             android:id="@+id/NameTextView"
-            android:maxLines="1"
-            android:inputType="text"
             android:hint="@string/nameHint"
+            style="@style/NameText" />
+        <EditText
+            android:id="@+id/AgeTextView"
+            android:hint="@string/ageHint"
+            android:maxLines="1" android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/StateTextView"
-            android:hint="@string/stateHint"
+
+        <FrameLayout
+            android:background="@drawable/back_smoke_round"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/StateTextView"
+                android:hint="@string/stateHint"
+                style="@style/StateText" />
+        </FrameLayout>
     </LinearLayout>
 
     <Button
