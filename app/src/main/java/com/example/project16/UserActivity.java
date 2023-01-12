@@ -1,5 +1,6 @@
 package com.example.project16;
 
+import static com.example.project16.Transform.parsIntOrDefault;
 import static com.example.project16.UserStaticInfo.POSITION;
 import static com.example.project16.UserStaticInfo.users;
 
@@ -48,14 +49,8 @@ public class UserActivity extends AppCompatActivity {
         activeUser.setState(StateTextView.getText().toString());
         activeUser.setAge(Integer.parseInt(AgeTextView.getText().toString()));
         String age = AgeTextView.getText().toString();
-        try {
-            activeUser.setAge(Integer.parseInt(age));
-        }
-        catch (Exception NumberFormatException){
-            activeUser.setAge(activeUser.getAge());
-        }
 
-        //activeUser.setAge(parseIntOrDefault(age,activeUser.getAge()));
+        activeUser.setAge(parsIntOrDefault(age,activeUser.getAge()));
         MainActivity.UpdateListAndUserPanel(activeUser);
         finish();
     }
