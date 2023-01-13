@@ -40,8 +40,8 @@ public class UserActivity extends AppCompatActivity {
         AgeTextView = findViewById(R.id.AgeTextView);
     }
 
-    public void Back(){
-        onBackPressed(e);
+    public void Back(View view) {
+        onBackPressed();
     }
 
     public void Save(View view) {
@@ -54,4 +54,6 @@ public class UserActivity extends AppCompatActivity {
         MainActivity.UpdateListAndUserPanel(activeUser);
         finish();
     }
+
+
 }
