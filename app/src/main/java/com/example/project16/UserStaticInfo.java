@@ -5,6 +5,17 @@ import java.util.List;
 
 public class UserStaticInfo {
 
+    public final static String USER_SIGN_IN_INFO = "UserSignInInfo";
+    public final static String USER_PROFILE_INFO = "UserProfileInfo";
+    public final static String PASSWORD = "password";
+    public final static String PROFILE_ID = "profileId";
+    public final static String NAME = "name";
+    public final static String AGE = "age";
+    public final static String STATE = "state";
+    public static String profileId;
+
+
+
     public final static String POSITION = "position";
     public static List<User> users = new ArrayList<>();
 
