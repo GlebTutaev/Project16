@@ -12,6 +12,7 @@ public class Transform {
         else return string.length() !=0;
     }
 
+
     public static void Vibrate(Context context){
 
 

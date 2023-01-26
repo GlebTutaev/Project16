@@ -42,13 +42,12 @@ public class SignActivity extends AppCompatActivity {
     public void SignIn(View view){
 
         if(StringNoNull(getPassword())&& StringNoNull(getLogin())){
-            String login = LoginTextView.getText().toString();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(USER_SIGN_IN_INFO);
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                    String login = getLogin();
+                    String login = getPassword();
                     Object value = dataSnapshot.child(login).child(PASSWORD).getValue();
                     if(value!=null)
                     {
@@ -68,7 +67,6 @@ public class SignActivity extends AppCompatActivity {
         }
         else{
             Vibrate(SignActivity.this);
-
             Toast.makeText(this,
                     getResources().getText(R.string.NullParametersMessage),
                     Toast.LENGTH_SHORT).show();
