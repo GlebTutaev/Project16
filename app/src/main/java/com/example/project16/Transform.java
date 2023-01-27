@@ -5,6 +5,9 @@ import android.os.Vibrator;
 
 public class Transform {
 
+    public static final String APP_PREFERENCES = "mysettings";
+    public static final String LOGIN = "login";
+
     public static Boolean StringNoNull(String string){
 
 

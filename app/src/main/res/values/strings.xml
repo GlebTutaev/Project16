@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project16</string>
+    <string name="app_name">aOa</string>
     <string name="stateHint">Статус</string>
     <string name="nameHint">Имя</string>
     <string name="ageHint">Возраст</string>
