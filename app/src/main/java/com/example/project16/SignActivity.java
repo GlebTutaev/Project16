@@ -113,7 +113,7 @@ public class SignActivity extends AppCompatActivity {
                     {
                         if(value.toString().equals(getPassword()))
                         {
-                            goNext(dataSnapshot.child(login).child(PROFILE_ID).getValue().toString());}
+                            goNext(dataSnapshot.child(PROFILE_ID).toString(), login, getPassword());}
                         else CantSignIn();
                     }
                     else CantSignIn();
@@ -144,10 +144,10 @@ public class SignActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void goNext(String profileId) {
+    private void goNext(String profileId, String login, String password) {
 
         UserStaticInfo.profileId = profileId;
-        SaveUser(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE), getLogin(), getPassword());
+        SaveUser(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE), login, password);
 
     }
     public void SignUp(View view){
@@ -173,7 +173,7 @@ public class SignActivity extends AppCompatActivity {
                         database.getReference(USERS_PROFILE_INFO).child(id).child(NAME).setValue(getNewName());
                         database.getReference(USERS_PROFILE_INFO).child(id).child(STATE).setValue(getNewState());
 
-                        goNext(id);
+                        goNext(id, login, getNewPassword());
                     }
 
                     else
