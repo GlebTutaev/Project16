@@ -1,8 +1,11 @@
 package com.example.project16;
 
+import static com.example.project16.Transform.APP_PREFERENCES;
+import static com.example.project16.Transform.SaveUser;
 import static com.example.project16.Transform.StringNoNull;
 import static com.example.project16.Transform.Vibrate;
 import static com.example.project16.UserStaticInfo.AGE;
+import static com.example.project16.UserStaticInfo.LOGIN;
 import static com.example.project16.UserStaticInfo.NAME;
 import static com.example.project16.UserStaticInfo.PASSWORD;
 import static com.example.project16.UserStaticInfo.PROFILE_ID;
@@ -14,6 +17,8 @@ import static com.example.project16.UserStaticInfo.profileId;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +46,16 @@ public class SignActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
         Init();
+
+        CheckSignInInfo();
+    }
+
+    private void CheckSignInInfo() {
+        SharedPreferences sp = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        String login = sp.getString(LOGIN, "");
+        String password = sp.getString(PASSWORD, "");
+        LoginTextView.setText(login);
+        PasswordTextView.setText(password);
     }
 
     private void Init() {
@@ -132,6 +147,7 @@ public class SignActivity extends AppCompatActivity {
     private void goNext(String profileId) {
 
         UserStaticInfo.profileId = profileId;
+        SaveUser(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE), getLogin(), getPassword());
 
     }
     public void SignUp(View view){
