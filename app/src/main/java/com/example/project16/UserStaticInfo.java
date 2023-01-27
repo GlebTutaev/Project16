@@ -12,7 +12,7 @@ public class UserStaticInfo {
     public final static String NAME = "name";
     public final static String AGE = "age";
     public final static String STATE = "state";
-    public static int profileId;
+    public static String profileId;
 
 
 

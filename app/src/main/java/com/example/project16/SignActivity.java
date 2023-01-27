@@ -129,12 +129,12 @@ public class SignActivity extends AppCompatActivity {
 
     private void goNext(String profileId) {
 
-        UserStaticInfo.profileId = Integer.parseInt(profileId);
+        UserStaticInfo.profileId = profileId;
 
     }
     public void SignUp(View view){
 
-        if(StringNoNull(getPassword())&& StringNoNull(getLogin()))
+        if(StringNoNull(getNewPassword())&& StringNoNull(getNewLogin()))
         {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             String id = database.getReference(USERS_PROFILE_INFO).push().getKey();
@@ -148,6 +148,7 @@ public class SignActivity extends AppCompatActivity {
             database.getReference(USERS_PROFILE_INFO).child(id).child(STATE).setValue(getNewState());
 
             goNext(id);
+
         }
         else{
             Vibrate(SignActivity.this);
