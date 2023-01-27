@@ -7,8 +7,8 @@ import static com.example.project16.UserStaticInfo.NAME;
 import static com.example.project16.UserStaticInfo.PASSWORD;
 import static com.example.project16.UserStaticInfo.PROFILE_ID;
 import static com.example.project16.UserStaticInfo.STATE;
-import static com.example.project16.UserStaticInfo.USER_PROFILE_INFO;
-import static com.example.project16.UserStaticInfo.USER_SIGN_IN_INFO;
+import static com.example.project16.UserStaticInfo.USERS_PROFILE_INFO;
+import static com.example.project16.UserStaticInfo.USERS_SIGN_IN_INFO;
 import static com.example.project16.UserStaticInfo.profileId;
 
 import androidx.annotation.NonNull;
@@ -53,7 +53,7 @@ public class SignActivity extends AppCompatActivity {
         tabHost.addTab(tabSpec);
 
         tabSpec = tabHost.newTabSpec("tag2");
-        tabSpec.setContent(R.id.tabSignIn);
+        tabSpec.setContent(R.id.tabSignUp);
         tabSpec.setIndicator("Регистрация");
 
         tabHost.addTab(tabSpec);
@@ -86,11 +86,11 @@ public class SignActivity extends AppCompatActivity {
         {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(USER_SIGN_IN_INFO);
+            DatabaseReference myRef = database.getReference(USERS_SIGN_IN_INFO);
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-                    String login = getPassword();
+                    String login = getLogin();
                     Object value = dataSnapshot.child(login).child(PASSWORD).getValue();
                     if(value!=null)
                     {
@@ -127,23 +127,25 @@ public class SignActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void goNext(String toString) {
-        profileId = profileId;
+    private void goNext(String profileId) {
+
+        UserStaticInfo.profileId = Integer.parseInt(profileId);
+
     }
     public void SignUp(View view){
 
         if(StringNoNull(getPassword())&& StringNoNull(getLogin()))
         {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            String id = database.getReference(USER_PROFILE_INFO).push().getKey();
+            String id = database.getReference(USERS_PROFILE_INFO).push().getKey();
             String login = getNewLogin();
 
-            database.getReference(USER_SIGN_IN_INFO).child(login).child(PASSWORD).setValue(getNewPassword());
-            database.getReference(USER_SIGN_IN_INFO).child(login).child(PROFILE_ID).setValue(id);
+            database.getReference(USERS_SIGN_IN_INFO).child(login).child(PASSWORD).setValue(getNewPassword());
+            database.getReference(USERS_SIGN_IN_INFO).child(login).child(PROFILE_ID).setValue(id);
 
-            database.getReference(USER_SIGN_IN_INFO).child(id).child(AGE).setValue(getNewAge());
-            database.getReference(USER_SIGN_IN_INFO).child(id).child(NAME).setValue(getNewName());
-            database.getReference(USER_SIGN_IN_INFO).child(id).child(STATE).setValue(getNewState());
+            database.getReference(USERS_PROFILE_INFO).child(id).child(AGE).setValue(getNewAge());
+            database.getReference(USERS_PROFILE_INFO).child(id).child(NAME).setValue(getNewName());
+            database.getReference(USERS_PROFILE_INFO).child(id).child(STATE).setValue(getNewState());
 
             goNext(id);
         }
