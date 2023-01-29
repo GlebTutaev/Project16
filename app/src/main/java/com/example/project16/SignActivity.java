@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class SignActivity extends AppCompatActivity {
         String password = sp.getString(PASSWORD, "");
         LoginTextView.setText(login);
         PasswordTextView.setText(password);
+        SignIn(LoginTextView);
     }
 
     private void Init() {
@@ -148,6 +150,10 @@ public class SignActivity extends AppCompatActivity {
 
         UserStaticInfo.profileId = profileId;
         SaveUser(getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE), login, password);
+
+        Intent intent = new Intent(this, LoadedUserDataActivity.class);
+        startActivity(intent);
+        finish();
 
     }
     public void SignUp(View view){
