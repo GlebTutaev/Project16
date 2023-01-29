@@ -99,8 +99,7 @@ public class SignActivity extends AppCompatActivity {
     private String getNewName() {return NewNameTextView.getText().toString();}
     private String getNewState() {return NewStateTextView.getText().toString();}
 
-    public void SignIn(View view){
-
+    public void  SignIn(){
         if(EditTextNoNullWithAnimation(PasswordTextView)&& EditTextNoNullWithAnimation(LoginTextView))
         {
 
@@ -134,6 +133,10 @@ public class SignActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
+    }
+    public void SignIn(View view){
+
+       SignIn();
 
     }
 

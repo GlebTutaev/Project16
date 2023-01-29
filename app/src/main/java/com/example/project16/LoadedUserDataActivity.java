@@ -12,12 +12,8 @@ public class LoadedUserDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loaded_user_data);
-        Init();
+
     }
 
-    private void Init() {
-        Animation animation = AnimationUtils.loadAnimation(
-                this, R.anim.logo_rotate_animation);
-        findViewById(R.id.imageForLoaded).startAnimation(animation);
-    }
+
 }
